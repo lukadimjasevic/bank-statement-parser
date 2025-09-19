@@ -19,9 +19,13 @@
 		"transactions"
 	],
 	"author": "Luka Dimjašević",
-	"license": "ISC",
+	"license": "MIT",
 	"bugs": {
 		"url": "https://github.com/lukadimjasevic/revolut-statement-parser/issues"
 	},
-	"homepage": "https://github.com/lukadimjasevic/revolut-statement-parser#readme"
+	"homepage": "https://github.com/lukadimjasevic/revolut-statement-parser#readme",
+	"dependencies": {
+		"crypto": "^1.0.1",
+		"xlsx": "^0.18.5"
+	}
 }
