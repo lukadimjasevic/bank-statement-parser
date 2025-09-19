@@ -16,17 +16,23 @@ const REQUIRED_COLUMNS = {
 };
 
 class Parser {
+    #filePath;
+    #workbook;
+    #sheetName;
+    #worksheet;
+    #transactionHash;
+    #filterColumns;
     constructor(filePath, options = {}) {
-        this.filePath = filePath;
-        this.workbook = reader.readFile(filePath);
-        this.sheetName = this.workbook.SheetNames[0]; // Assuming we want the first sheet
-        this.worksheet = this.workbook.Sheets[this.sheetName];
-        this.transactionHash = options.transactionHash || false;
-        this.filterColumns = options.filterColumns || false;
+        this.#filePath = filePath;
+        this.#workbook = reader.readFile(filePath);
+        this.#sheetName = this.#workbook.SheetNames[0]; // Assuming we want the first sheet
+        this.#worksheet = this.#workbook.Sheets[this.#sheetName];
+        this.#transactionHash = options.transactionHash || false;
+        this.#filterColumns = options.filterColumns || false;
     }
 
     parse() {
-        const jsonData = reader.utils.sheet_to_json(this.worksheet, { defval: false });
+        const jsonData = reader.utils.sheet_to_json(this.#worksheet, { defval: false });
         for (const row of jsonData) {
             for (const rowKey of Object.keys(row)) {
                 if (!Object.keys(REQUIRED_COLUMNS).includes(rowKey)) {
@@ -61,11 +67,11 @@ class Parser {
                 row.completedDate = null;
             }
 
-            if (this.transactionHash) {
+            if (this.#transactionHash) {
                 row.transactionHash = this.#generateTransactionHash(row);
             }
         }
-        if (this.filterColumns) {
+        if (this.#filterColumns) {
             for (let i = 0; i < jsonData.length; i++) {
                 jsonData[i] = this.#filterTransactionColumns(jsonData[i]);
             }
@@ -96,17 +102,16 @@ class Parser {
 
     #filterTransactionColumns(transaction) {
         const filteredTransaction = {};
-        if (!Array.isArray(this.filterColumns)) {
+        if (!Array.isArray(this.#filterColumns)) {
             throw new Error('filterColumns option must be an array of column names');
         }
-        for (const column of this.filterColumns) {
+        for (const column of this.#filterColumns) {
             if (Object.keys(transaction).includes(column)) {
                 filteredTransaction[column] = transaction[column];
             }
         }
         return filteredTransaction;
     }
-        
 }
 
 
