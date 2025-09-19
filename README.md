@@ -26,19 +26,19 @@ console.log(transactions);
 
 Each transaction returned by the parser has the following fields:
 
-| Column            | Type    | Description                                             |
-|-------------------|---------|---------------------------------------------------------|
-| type              | string  | Type of transaction                                     |
-| product           | string  | Account type                                            |
-| startedDate       | Date    | Date when the transaction started                       |
-| completedDate     | Date    | Date when the transaction completed                     |
-| description       | string  | Transaction description                                 |
-| amount            | number  | Transaction amount                                      |
-| fee               | number  | Transaction fee                                         |
-| currency          | string  | Transaction currency                                    |
-| state             | string  | Transaction status                                      |
-| balance           | number  | Account balance after the transaction                   |
-| transactionHash   | string  | Optional unique transaction hash (`generateHash: true`) |
+| Column            | Type    | Description                                                |
+|-------------------|---------|------------------------------------------------------------|
+| type              | string  | Type of transaction                                        |
+| product           | string  | Account type                                               |
+| startedDate       | Date    | Date when the transaction started                          |
+| completedDate     | Date    | Date when the transaction completed                        |
+| description       | string  | Transaction description                                    |
+| amount            | number  | Transaction amount                                         |
+| fee               | number  | Transaction fee                                            |
+| currency          | string  | Transaction currency                                       |
+| state             | string  | Transaction status                                         |
+| balance           | number  | Account balance after the transaction                      |
+| transactionHash   | string  | Optional unique transaction hash (`transactionHash: true`) |
 
 ## Options
 
