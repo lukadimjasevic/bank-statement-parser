@@ -1,13 +1,11 @@
 const REQUIRED_COLUMNS = [
-    'Type',
-    'Product',
-    'Started Date',
-    'Completed Date',
-    'Description',
-    'Amount',
-    'Fee',
-    'Currency',
-    'Balance',
+    'Datum',
+    'Referencija',
+    'Opis',
+    'Uplata',
+    'Isplata',
+    'Saldo',
+    'Valuta',
 ];
 
 /**
@@ -30,15 +28,15 @@ function normalizeData(data) {
         }
 
         const normalized = {
-            type: transaction['Amount'] > 0 ? 'Deposit' : 'Withdrawal',
-            product: transaction['Product'],
-            startedDate: transaction['Started Date'],
-            completedDate: transaction['Completed Date'],
-            description: transaction['Description'],
-            amount: Math.abs(transaction['Amount']),
-            fee: transaction['Fee'],
-            currency: transaction['Currency'],
-            balance: transaction['Balance'],
+            type: transaction['Uplata'] ? 'Deposit' : 'Withdrawal',
+            product: 'Current',
+            startedDate: transaction['Datum'],
+            completedDate: transaction['Datum'],
+            description: transaction['Opis'],
+            amount: transaction['Uplata'] ? transaction['Uplata'] : transaction['Isplata'],
+            fee: 0,
+            currency: transaction['Valuta'],
+            balance: transaction['Saldo'],
         };
 
         normalizedData.push(normalized);

@@ -20,9 +20,11 @@ class StatementParser {
         const workbook = reader.readFile(this.filePath);
         const sheetName = workbook.SheetNames[0]; // Assuming we want the first sheet
         const worksheet = workbook.Sheets[sheetName];
+        const range = this.bank === 'zaba' ? 4 : 0;
+        const data = reader.utils.sheet_to_json(worksheet, { defval: false, range });
 
-        const data = reader.utils.sheet_to_json(worksheet, { defval: false });
         let normalized = this.#normalizeData(data);
+        this.#convertDates(normalized);
 
         if (this.options.setHash) {
             this.#applyTransactionHash(normalized);
@@ -37,6 +39,14 @@ class StatementParser {
 
     #normalizeData(data) {
         return normalizers[this.bank](data);
+    }
+
+    #convertDates(transactions) {
+        return transactions.map(tx => {
+            if (typeof tx.startedDate === 'number') tx.startedDate = helpers.date.excelSerialToDate(tx.startedDate);
+            if (typeof tx.completedDate === 'number') tx.completedDate = helpers.date.excelSerialToDate(tx.completedDate);
+            return tx;
+        });
     }
 
     #applyTransactionHash(transactions) {

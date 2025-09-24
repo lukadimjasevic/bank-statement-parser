@@ -7,13 +7,7 @@ const crypto = require('crypto');
  */
 function createTransactionHash(transaction) {
     const hash = crypto.createHash('sha256');
-    const hashInput = `
-        ${transaction.type}
-        ${transaction.startedDate}
-        ${transaction.completedDate}
-        ${transaction.description}
-        ${transaction.amount}
-        ${transaction.balance}`;
+    const hashInput = Object.values(transaction).join('#');
     hash.update(hashInput);
     return hash.digest('hex');
 }
