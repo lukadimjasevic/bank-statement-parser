@@ -1,23 +1,24 @@
-export interface ParserOptions {
-    transactionHash?: boolean; // Adds a unique hash to each transaction
-    filterColumns?: string[]; // Filters the transaction object to only include specified columns
+export interface StatementParserOptions {
+    bank: string;
+    setHash?: boolean; // Adds a unique hash to each transaction
+    includeColumns?: string[]; // Filters the transaction object to only include specified columns
 }
 
 export interface Transaction {
     type: string;
     product: string;
-    startedDate: Date | null;
-    completedDate: Date | null;
+    startedDate: Date;
+    completedDate: Date;
     description: string;
     amount: number;
     fee: number;
     currency: string;
     state: string;
     balance: number;
-    transactionHash?: string; // Optional hash if transactionHash option is enabled
+    hash?: string; // Optional hash if setHash option is enabled
 }
 
-export declare class Parser {
-    constructor(filePath: string, options?: ParserOptions);
+export declare class StatementParser {
+    constructor(filePath: string, options?: StatementParserOptions);
     parse(): Transaction[];
 }

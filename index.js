@@ -1,3 +1,3 @@
-const Parser = require('./models/Parser');
+const StatementParser = require('./models/StatementParser.js');
 
-module.exports = { Parser };
+module.exports = { StatementParser };
