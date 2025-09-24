@@ -1,6 +1,6 @@
 {
 	"name": "@lukadimjasevic/bank-statement-parser",
-	"version": "1.0.0",
+	"version": "1.0.1",
 	"description": "A Node.js package for parsing bank statement exports into a unified JSON format. It simplifies working with financial transaction data by providing a consistent structure ready for analysis, reporting, or automation.",
 	"main": "index.js",
 	"types": "index.d.ts",
